@@ -8,10 +8,10 @@ const char* password = "";               // Senha da sua rede Wi-Fi
 //////////////////////////////////////////////////////////////////////////////////
 const char* broker = "broker.app.wnology.io";          // Endereço do broker MQTT
 const int port = 1883;                                 // Porta do broker MQTT
-const char* accessKey = "d69d796a-1251-484f-9d6f-3622d0fbad0e";     // Chave de acesso ao broker MQTT
-const char* accessSecret = "99d839dea808f2cc4dc6a6bfd61e54c23cad9480f8de473a56a60cc8964f8b9d";  // Segredo de acesso ao broker MQTT
-const char* topic = "wnology/64947c24ce6b4c71f6c8369a/state";         // Tópico MQTT a ser assinado
-const char* clientID = "64947c24ce6b4c71f6c8369a";     // MQTT Client ID
+const char* accessKey = "";     // Chave de acesso ao broker MQTT
+const char* accessSecret = "";  // Segredo de acesso ao broker MQTT
+const char* topic = "wnology//state";         // Tópico MQTT a ser assinado
+const char* clientID = "";     // MQTT Client ID
 
 WiFiClient wifiClient;              // Cliente WiFi
 PubSubClient mqttClient(wifiClient); // Cliente MQTT
