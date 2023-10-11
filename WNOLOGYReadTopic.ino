@@ -2,8 +2,8 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "esp";                    // SSID da sua rede Wi-Fi
-const char* password = "teste32esp";               // Senha da sua rede Wi-Fi
+const char* ssid = "";                    // SSID da sua rede Wi-Fi
+const char* password = "";               // Senha da sua rede Wi-Fi
 
 //////////////////////////////////////////////////////////////////////////////////
 const char* broker = "broker.app.wnology.io";          // Endereço do broker MQTT
