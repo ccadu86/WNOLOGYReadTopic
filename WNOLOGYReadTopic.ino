@@ -66,12 +66,19 @@ void reconnect() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Mensagem recebida do tópico: ");
-  Serial.println(topic); // Imprime o tópico da mensagem recebida
+  Serial.println("Mensagem recebida:");
 
-  DynamicJsonDocument doc(256);  // Cria um documento JSON dinâmico com tamanho de 256 bytes
-  deserializeJson(doc, payload, length);  // Analisa o payload JSON recebido
+  // Imprimir o tópico
+  Serial.print("Tópico: ");
+  Serial.println(topic);
 
-  const JsonObject& data = doc["data"];  // Obtém o objeto JSON "data" do documento
-  Serial.println(data);
+  // Imprimir o payload
+  Serial.print("Payload: ");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+
+  // Criar uma quebra de linha para separar mensagens
+  Serial.println();
 }
