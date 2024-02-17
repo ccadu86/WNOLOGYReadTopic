@@ -66,6 +66,7 @@ void reconnect() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
+  int temperatura = 0; 
   Serial.println("Mensagem recebida:");
 
   // Imprimir o tópico
@@ -78,6 +79,17 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
+
+  DynamicJsonDocument doc(256);  // Cria um documento JSON dinâmico com tamanho de 256 bytes
+  deserializeJson(doc, payload, length);  // Analisa o payload JSON recebido
+
+  const JsonObject& data = doc["data"];  // Obtém o objeto JSON "data" do documento
+
+  if (data.containsKey("TEMP")) {
+    temperatura = data["TEMP"].as<int>();  // Extrai o valor de "TEMP" e atribui à variável temperatura
+    Serial.print("Temperatura: ");
+    Serial.println(temperatura); // Imprime a temperatura
+  }
 
   // Criar uma quebra de linha para separar mensagens
   Serial.println();
