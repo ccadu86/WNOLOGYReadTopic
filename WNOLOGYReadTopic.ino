@@ -2,25 +2,27 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "";                    // SSID da sua rede Wi-Fi
+const char* ssid = "Wokwi-GUEST";                    // SSID da sua rede Wi-Fi
 const char* password = "";               // Senha da sua rede Wi-Fi
 
 //////////////////////////////////////////////////////////////////////////////////
 const char* broker = "broker.app.wnology.io";          // Endereço do broker MQTT
 const int port = 1883;                                 // Porta do broker MQTT
-const char* accessKey = "";     // Chave de acesso ao broker MQTT
-const char* accessSecret = "";  // Segredo de acesso ao broker MQTT
-const char* topic = "wnology//state";         // Tópico MQTT a ser assinado
-const char* clientID = "";     // MQTT Client ID
+const char* accessKey = "ef9231d3-f5ba-42e3-a9e2-2350c06e5a14";     // Chave de acesso ao broker MQTT
+const char* accessSecret = "6c67680442d4a877040b5d3f4252e776a6faaf8cc59bebc3394d42e6da76cd28";  // Segredo de acesso ao broker MQTT
+const char* topic = "wnology/65d0abf1caa6d9059dc9b624/state";         // Tópico MQTT a ser assinado
+const char* clientID = "65d0abf1caa6d9059dc9b624";     // MQTT Client ID
 
 WiFiClient wifiClient;              // Cliente WiFi
 PubSubClient mqttClient(wifiClient); // Cliente MQTT
+
 
 void setup() {
   Serial.begin(115200); // Inicializa a comunicação serial
   setupWiFi();        // Configura a conexão Wi-Fi
   mqttClient.setServer(broker, port); // Configura o servidor MQTT
   mqttClient.setCallback(callback);   // Configura a função de retorno de chamada MQTT
+  pinMode(27, OUTPUT);
 }
 
 void loop() {
@@ -89,8 +91,16 @@ void callback(char* topic, byte* payload, unsigned int length) {
     temperatura = data["TEMP"].as<int>();  // Extrai o valor de "TEMP" e atribui à variável temperatura
     Serial.print("Temperatura: ");
     Serial.println(temperatura); // Imprime a temperatura
-  }
+    if (temperatura >= 50){
+      digitalWrite(27, HIGH);
+      Serial.println("LED LIGADO");
+    }
+    else{
+      digitalWrite(27, LOW);
+      Serial.println("LED DESLIGADO");
+    }
 
   // Criar uma quebra de linha para separar mensagens
   Serial.println();
+}
 }
